@@ -15,7 +15,7 @@ public class Main {
             System.out.println("Enter two numbers :");
             double a = sc.nextDouble();
             double b = sc.nextDouble();
-            //sc.nextLine();
+            sc.nextLine();
 
             switch (n) {
                 case 1:
