@@ -8,12 +8,14 @@ This repository contains **two Java-based console applications**:
 ## 📌 Projects Overview  
 
 ### 1. Console Calculator  
+
 A command-line calculator that supports:  
 ✔️ Addition, Subtraction, Multiplication, Division, Modulus  
 ✔️ Input validation to prevent errors (e.g., division by zero)  
 ✔️ Continuous operation mode  
 
 ### 2. Contact Manager
+
 A simple CLI-based contact management system that allows users to:
 ✔️ Add contacts (Name, Phone Number, Email)
 ✔️ Display all saved contacts
