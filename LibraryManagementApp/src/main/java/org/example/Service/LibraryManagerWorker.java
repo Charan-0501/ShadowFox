@@ -1,5 +1,5 @@
 package org.example.Service;
-
+import org.example.Main;
 import org.example.Entity.Entity;
 
 public class LibraryManagerWorker implements LibraryManager{
@@ -36,12 +36,57 @@ public class LibraryManagerWorker implements LibraryManager{
         }
     }
     public void updateBook(){
+        if (list.isEmpty()) {
+            System.out.println("There are no Books in Library ");
+            return;
+        }
+        else {
+            System.out.println("Enter the Book name you like to update");
+            String update1 = sc.nextLine();
+            for (Entity i : list) {
+                if (i.getBookName().equalsIgnoreCase(update1)) {
+                    System.out.println("You can only update book availability");
+                    System.out.println("\n Is book available ? true or false");
+                    i.setBookAvailable(sc.nextBoolean());
+                    System.out.println("Book availability updated Successfully");
+                    return;
+                }
+            }
+        }
+        System.out.println("No book found with that name");
 
     }
     public void searchBookByAuthor(){
 
+        if (list.isEmpty()) {
+            System.out.println("There are no Books in Library");
+        } else {
+            System.out.println("Enter Author name ");
+            String s = sc.nextLine();
+            for (Entity i : list) {
+                if(i.getBookAuthor().equalsIgnoreCase(s)){
+                    System.out.println(i);
+                    return;
+                }
+            }
+            System.out.println("There are no "+s+"'s books in library" );
+        }
+
     }
     public void searchBookByName(){
+        if (list.isEmpty()) {
+            System.out.println("There are no Books in Library");
+        } else {
+            System.out.println("Enter book name");
+            String s = sc.nextLine();
+            for (Entity i : list) {
+                if(i.getBookName().equalsIgnoreCase(s)){
+                    System.out.println(i);
+                    return;
+                }
+            }
+            System.out.println("No Book Found with that name");
+        }
 
     }
     public void displayBooks(){
@@ -54,7 +99,5 @@ public class LibraryManagerWorker implements LibraryManager{
             System.out.println(book);
         }
     }
-    public void exitLibrary(){
 
-    }
 }

@@ -16,6 +16,6 @@ public interface LibraryManager {
     void searchBookByAuthor();
     void searchBookByName();
     void displayBooks();
-    void exitLibrary();
+
 
 }

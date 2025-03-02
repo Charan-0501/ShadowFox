@@ -1,51 +1,93 @@
 package org.example;
-import org.example.Service.LibraryManager;
-import org.example.Service.LibraryManagerWorker;
 
-import java.util.InputMismatchException;
+import org.example.DataBase.Dao;
+import org.example.DataBase.databaseConnection;
+import org.example.Entity.Entity;
+
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
-    public static boolean isContinues = true;
 
     public static void main(String[] args) {
+        databaseConnection.createTable(); 
+        Dao bookDAO = new Dao();
+        Scanner sc = new Scanner(System.in);
 
-        Scanner sc=new Scanner(System.in);
-        LibraryManager manager=new LibraryManagerWorker();
-        do {
-            System.out.println("\nWelcome To Library,How Can I help You");
-            System.out.println("------------------------------------------------------");
-            System.out.println("1.Add New Book\n2.Display Booklist\n3.Update Book Details\n4.Remove Book\n6.search7.Exit");
-            try {
-                int n = sc.nextInt();
-                sc.nextLine();
-                switch (n) {
-                    case 1:
-                        manager.addBook();
-                        break;
-                    case 2:
-                        manager.displayBooks();
-                        break;
-                    case 3:
-                        manager.updateBook();
-                        break;
-                    case 4:
-                        manager.removeBook();
-                        break;
-                    case 5:
-                        manager.exitLibrary();
-                        break;
-                    default:
-                        System.out.println("Please enter a valid operation");
+        while (true) {
+            System.out.println("\n Library Management System ");
+            System.out.println("1 Add Book");
+            System.out.println("2 View Books");
+            System.out.println("3 Delete Book");
+            System.out.println("4 Exit");
+            System.out.print("Enter your choice: ");
 
-                }
-            }catch( InputMismatchException ex1){
-                System.out.println("*** Invalid Input ***\nPlease Enter a number");
-                sc.nextLine();
+
+            if (!sc.hasNextInt()) {
+                System.out.println("--- Invalid input! Please enter a number---");
+                sc.next();
+                continue;
             }
-        }while (isContinues) ;
 
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    sc.nextLine();
+                    System.out.print("Enter book title: ");
+                    String title = sc.nextLine();
+                    System.out.print(" Enter author: ");
+                    String author = sc.nextLine();
+                    System.out.print(" Enter price: ");
+
+
+                    if (!sc.hasNextFloat()) {
+                        System.out.println(" Invalid input! Please enter a valid price.");
+                        sc.next();
+                        continue;
+                    }
+
+                    float price = sc.nextFloat();
+
+                    Entity newBook = new Entity(title, author, price);
+                    bookDAO.addBook(newBook);
+                    break;
+
+                case 2:
+                    List<Entity> books = bookDAO.getAllBooks();
+                    if (books.isEmpty()) {
+                        System.out.println(" No books available.");
+                    } else {
+                        System.out.println("\n Available Books:");
+                        for (Entity book : books) {
+                            System.out.println(book);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.print(" Enter book ID to delete: ");
+
+
+                    if (!sc.hasNextInt()) {
+                        System.out.println(" Invalid input! Please enter a valid book ID.");
+                        sc.next();
+                        continue;
+                    }
+
+                    int bookId = sc.nextInt();
+                    bookDAO.deleteBook(bookId);
+                    break;
+
+                case 4:
+                    System.out.println(" Exiting... Thank you for using the Library Management System!");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println(" Invalid choice! Please select a valid option.");
+            }
+        }
     }
-
 }

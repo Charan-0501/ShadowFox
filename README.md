@@ -1,24 +1,36 @@
-# ShadowFox Virtual Internship Projects 🚀  
+# ShadowFox Virtual Internship Projects
 
-This repository contains **two Java-based console applications**:  
+Projects Overview
 
-1. **Console Calculator** – A basic calculator for performing arithmetic operations.  
-2. **Contact Manager** – A simple contact management system to store, display, and delete contacts.  
+1. Console Calculator
+   A simple calculator that performs basic arithmetic operations.
+   Supports addition, subtraction, multiplication, division, and modulo.
+   Implements a user-friendly console interface.
+   Ensures error handling for invalid inputs and division by zero.
 
-## 📌 Projects Overview  
+2. Contact Manager
+   A contact management system that allows users to store and manage contacts.
+   Supports adding, removing, and searching contacts.
+   Uses Java collections (ArrayList) to store contact details.
+   Provides a structured console-based user interface.
 
-### 1. Console Calculator  
+3. Bank Management System
+   A banking system that manages customer accounts and transactions.
+   Implements deposit, withdrawal, balance inquiry, and account creation.
+   Uses JUnit testing for unit testing different functionalities.
+   Ensures secure and efficient transaction processing.
 
-A command-line calculator that supports:  
-✔️ Addition, Subtraction, Multiplication, Division, Modulus  
-✔️ Input validation to prevent errors (e.g., division by zero)  
-✔️ Continuous operation mode  
+4. Library Management System (LMS) with SQLite
+   An enhanced library management system that uses SQLite for data persistence.
+   Supports adding, deleting, and searching books.
+   Stores book details in an SQLite database instead of memory.
+   Implements JDBC for database connectivity.
 
-### 2. Contact Manager
+*** Technologies Used ***
 
-A simple CLI-based contact management system that allows users to:
-✔️ Add contacts (Name, Phone Number, Email)
-✔️ Display all saved contacts
-✔️ Delete contacts by name
-✔️ Update contacts by name
-✔️ Handle duplicate entries and invalid inputs
+---Java (Core Java, OOPs)
+---SQLite (For persistent storage in LMS)
+---JUnit (For unit testing in Bank Management System)
+---JDBC (For database connectivity)
+---Maven (Project dependency management)
+
