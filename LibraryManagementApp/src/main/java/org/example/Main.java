@@ -25,6 +25,11 @@ public class Main {
                 System.out.println("7. Exit");
                 System.out.print("Enter your choice: ");
 
+                while (!sc.hasNextInt()) {
+                    System.out.println("Invalid input. Please enter a number between 1 and 7:");
+                    sc.next();
+                }
+
                 int choice = sc.nextInt();
                 sc.nextLine();  // Consume newline
 

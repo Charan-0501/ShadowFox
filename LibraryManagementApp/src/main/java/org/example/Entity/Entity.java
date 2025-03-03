@@ -71,10 +71,11 @@ public class Entity {
         }
 
         // Override toString() for better object representation
+
         @Override
         public String toString() {
-            return "Book ID: " + bookId + ", Title: " + bookName + ", Author: " + bookAuthor +
-                    ", Price: $" + bookPrice + ", Available: " + bookAvailable;
+             return "Book ID: " + bookId + ", Name: " + bookName + ", Author: " + bookAuthor +
+                ", Price: $" + bookPrice + ", Available: " + bookAvailable;
         }
 
 }

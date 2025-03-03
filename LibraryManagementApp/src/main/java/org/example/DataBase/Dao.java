@@ -4,6 +4,12 @@ import org.example.Entity.Entity;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.example.Entity.Entity;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 public class Dao {
 
         private static final String URL = "jdbc:sqlite:library.db"; // SQLite database file
@@ -23,8 +29,9 @@ public class Dao {
             try (Connection conn = DriverManager.getConnection(URL);
                  Statement stmt = conn.createStatement()) {
                 stmt.execute(sql);
+                System.out.println("Table 'books' created or already exists.");
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error creating table: " + e.getMessage());
             }
         }
 
@@ -38,8 +45,9 @@ public class Dao {
                 pstmt.setFloat(3, book.getBookPrice());
                 pstmt.setBoolean(4, book.isBookAvailable());
                 pstmt.executeUpdate();
+                System.out.println("Book added successfully.");
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error adding book: " + e.getMessage());
             }
         }
 
@@ -49,9 +57,10 @@ public class Dao {
             try (Connection conn = DriverManager.getConnection(URL);
                  PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, bookName);
-                return pstmt.executeUpdate() > 0; // Returns true if deletion was successful
+                int rowsAffected = pstmt.executeUpdate();
+                return rowsAffected > 0; // Returns true if deletion was successful
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error removing book: " + e.getMessage());
                 return false;
             }
         }
@@ -64,10 +73,16 @@ public class Dao {
                 pstmt.setString(1, bookName);
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
-                    return new Entity(rs.getString("name"), rs.getString("author"), rs.getFloat("price"));
+                    return new Entity(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("author"),
+                            rs.getFloat("price"),
+                            rs.getBoolean("isAvailable")
+                    );
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error fetching book by name: " + e.getMessage());
             }
             return null;
         }
@@ -80,10 +95,16 @@ public class Dao {
                  Statement stmt = conn.createStatement();
                  ResultSet rs = stmt.executeQuery(sql)) {
                 while (rs.next()) {
-                    books.add(new Entity(rs.getString("name"), rs.getString("author"), rs.getFloat("price")));
+                    books.add(new Entity(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("author"),
+                            rs.getFloat("price"),
+                            rs.getBoolean("isAvailable")
+                    ));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error fetching all books: " + e.getMessage());
             }
             return books;
         }
@@ -97,10 +118,16 @@ public class Dao {
                 pstmt.setString(1, author);
                 ResultSet rs = pstmt.executeQuery();
                 while (rs.next()) {
-                    books.add(new Entity(rs.getString("name"), rs.getString("author"), rs.getFloat("price")));
+                    books.add(new Entity(
+                            rs.getInt("id"),
+                            rs.getString("name"),
+                            rs.getString("author"),
+                            rs.getFloat("price"),
+                            rs.getBoolean("isAvailable")
+                    ));
                 }
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error fetching books by author: " + e.getMessage());
             }
             return books;
         }
@@ -113,9 +140,9 @@ public class Dao {
                 pstmt.setBoolean(1, book.isBookAvailable());
                 pstmt.setString(2, book.getBookName());
                 pstmt.executeUpdate();
+                System.out.println("Book availability updated successfully.");
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.err.println("Error updating book availability: " + e.getMessage());
             }
         }
-
 }

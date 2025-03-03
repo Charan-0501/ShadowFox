@@ -27,7 +27,7 @@ public class LibraryManagerWorker {
 
             Entity book = new Entity(name, author, price);
             libraryDAO.addBook(book);
-            System.out.println("\nBook added successfully!");
+            //System.out.println("\nBook added successfully!");
         }
 
         public void removeBook() {

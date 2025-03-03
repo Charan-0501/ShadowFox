@@ -18,9 +18,10 @@ public class databaseConnection {
         public static void createTable() {
             String sql = "CREATE TABLE IF NOT EXISTS books ("
                     + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
-                    + "title TEXT NOT NULL, "
+                    + "name TEXT NOT NULL, "
                     + "author TEXT NOT NULL, "
-                    + "available INTEGER DEFAULT 1)";
+                    + "price REAL NOT NULL, "
+                    + "isAvailable BOOLEAN NOT NULL DEFAULT 1)";
             try (Connection conn = connect(); Statement stmt = conn.createStatement()) {
                 stmt.execute(sql);
                 System.out.println("Books table created successfully.");
